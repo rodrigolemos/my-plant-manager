@@ -1,12 +1,19 @@
 import React from 'react';
 import { Dimensions, SafeAreaView, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/core';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import wateringImg from '../assets/watering.png';
 
 export function Welcome() {
+  const navigation = useNavigation();
+
+  function handleStart() {
+    navigation.navigate('UserIdentification');
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Gerencie {'\n'} suas plantas de {'\n'} forma fácil</Text>
@@ -21,6 +28,7 @@ export function Welcome() {
       <TouchableOpacity
         style={styles.button}
         activeOpacity={0.7}
+        onPress={handleStart}
       >
         <Feather
           name="chevron-right"
