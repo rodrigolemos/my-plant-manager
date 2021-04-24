@@ -11,6 +11,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -37,11 +38,13 @@ export function UserIdentification() {
     setName(value);
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!name) {
       alert('Por favor, preencha seu nome 😊');
       return;
     }
+
+    await AsyncStorage.setItem('@plant-manager:user', name);
     navigation.navigate('Confirmation');
   }
 
