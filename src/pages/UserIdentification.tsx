@@ -43,9 +43,12 @@ export function UserIdentification() {
       alert('Por favor, preencha seu nome 😊');
       return;
     }
-
-    await AsyncStorage.setItem('@plant-manager:user', name);
-    navigation.navigate('Confirmation');
+    try {
+      await AsyncStorage.setItem('@plant-manager:user', name);
+      navigation.navigate('Confirmation');
+    } catch {
+      alert('Não foi possível salvar o seu nome. 😢');
+    }
   }
 
   return (
