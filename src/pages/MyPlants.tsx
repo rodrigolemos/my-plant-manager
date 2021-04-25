@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, Image, FlatList } from 'react-native';
+import { StyleSheet, View, Text, Image, FlatList, Alert } from 'react-native';
 import { formatDistance } from 'date-fns';
 import { pt } from 'date-fns/locale';
 
-import { loadPlant, PlantProps } from '../libs/storage';
+import { loadPlant, removePlant, PlantProps } from '../libs/storage';
 import { Header } from '../components/Header';
 import { PlantCardSecondary } from '../components/PlantCardSecondary';
 import { Load } from '../components/Load';
@@ -15,6 +15,26 @@ export function MyPlants() {
   const [myPlants, setMyPlants] = useState<PlantProps[]>();
   const [loading, setLoading] = useState<boolean>(true);
   const [nextWatered, setNextWatered] = useState<string>();
+
+  function handleRemove(plant: PlantProps) {
+    Alert.alert('Remover', `Deseja remover a ${plant.name}?`, [
+      {
+        text: 'Não ⛔',
+        style: 'cancel'
+      },
+      {
+        text: 'Sim ✌',
+        onPress: async () => {
+          try {
+            await removePlant(plant.id);
+            setMyPlants(prevState =>  prevState?.filter(item => item.id !== plant.id));
+          } catch (error) {
+            Alert.alert('Não foi possível remover.');
+          }
+        }
+      }
+    ]);
+  }
 
   useEffect(() => {
     async function loadStorageData() {
@@ -61,7 +81,10 @@ export function MyPlants() {
           data={myPlants}
           keyExtractor={(item) => String(item.id)}
           renderItem={(item) => (
-            <PlantCardSecondary data={item} />
+            <PlantCardSecondary
+              data={item}
+              handleRemove={() => handleRemove(item.item)}
+            />
           )}
         />
       </View>
@@ -81,16 +104,16 @@ const styles = StyleSheet.create({
   spotlight: {
     backgroundColor: colors.blue_light,
     paddingHorizontal: 20,
-    marginTop: 20,
+    marginTop: 10,
     borderRadius: 20,
-    height: 110,
+    height: 100,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
   },
   spotlightImage: {
-    width: 60,
-    height: 60
+    width: 50,
+    height: 50
   },
   spotlightText: {
     flex: 1,
@@ -102,9 +125,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   plantsTitle: {
-    fontSize: 24,
+    fontSize: 22,
     fontFamily: fonts.heading,
     color: colors.heading,
-    marginVertical: 20
+    marginVertical: 15
   }
 });
