@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-
-import userImg from '../assets/perfil.png';
 
 export function Header() {
   const [userName, setUserName] = useState<string>();
@@ -24,7 +22,9 @@ export function Header() {
         <Text style={styles.greeting}>Olá,</Text>
         <Text style={styles.userName}>{userName}</Text>
       </View>
-      <Image source={userImg} style={styles.image} />
+      <View style={styles.image}>
+        <Text style={styles.letter}>{userName?.substr(0, 1)}</Text>
+      </View>
     </View>
   )
 }
@@ -51,6 +51,13 @@ const styles = StyleSheet.create({
   image: {
     width: 70,
     height: 70,
-    borderRadius: 35
+    borderRadius: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.green
+  },
+  letter: {
+    color: colors.white,
+    fontSize: 28,
   }
 });
