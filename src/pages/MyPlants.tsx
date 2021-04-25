@@ -7,14 +7,12 @@ import { loadPlant, removePlant, PlantProps } from '../libs/storage';
 import { Header } from '../components/Header';
 import { PlantCardSecondary } from '../components/PlantCardSecondary';
 import { Load } from '../components/Load';
-import waterdrop from '../assets/waterdrop.png';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
 export function MyPlants() {
   const [myPlants, setMyPlants] = useState<PlantProps[]>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [nextWatered, setNextWatered] = useState<string>();
 
   function handleRemove(plant: PlantProps) {
     Alert.alert('Remover', `Deseja remover a ${plant.name}?`, [
@@ -39,16 +37,6 @@ export function MyPlants() {
   useEffect(() => {
     async function loadStorageData() {
       const plantsStoraged = await loadPlant();
-      const nextTime = formatDistance(
-        new Date(plantsStoraged[0].dateTimeNotification).getTime(),
-        new Date().getTime(),
-        { locale: pt }
-      );
-
-      setNextWatered(
-        `Não esqueça de regar a ${plantsStoraged[0].name} à ${nextTime}.`
-      );
-
       setMyPlants(plantsStoraged);
       setLoading(false);
     }
@@ -63,15 +51,6 @@ export function MyPlants() {
   return (
     <View style={styles.container}>
       <Header />
-      <View style={styles.spotlight}>
-        <Image
-          source={waterdrop}
-          style={styles.spotlightImage}
-        />
-        <Text style={styles.spotlightText}>
-          {nextWatered}
-        </Text>
-      </View>
       <View style={styles.plants}>
         <Text style={styles.plantsTitle}>
           Próximas regadas
@@ -100,25 +79,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingTop: 50,
     backgroundColor: colors.background
-  },
-  spotlight: {
-    backgroundColor: colors.blue_light,
-    paddingHorizontal: 20,
-    marginTop: 10,
-    borderRadius: 20,
-    height: 100,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  spotlightImage: {
-    width: 50,
-    height: 50
-  },
-  spotlightText: {
-    flex: 1,
-    color: colors.blue,
-    paddingHorizontal: 20
   },
   plants: {
     flex: 1,
