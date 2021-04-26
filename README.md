@@ -6,7 +6,7 @@
 
 ## Sobre
 
-Plant Manager é uma aplicação open source para ajudar o usuário a cuidar melhor de suas plantas. Com esse app é possível cadastrar e exibit detalhes de determinadas espécies, bem como cadastrar horários periódicos para regá-las e acompanhá-las. Como fez parte de um evento semanal gratuito da Rocketseat chamado Next Level Week, é provável que você encontre projetos parecidos com esse aqui no Github.
+Plant Manager é uma aplicação open source para ajudar o usuário a cuidar melhor de suas plantas. Com esse app é possível cadastrar e exibir detalhes de determinadas espécies, bem como cadastrar horários periódicos para regá-las e acompanhá-las. Como fez parte de um evento semanal gratuito da Rocketseat chamado Next Level Week, é provável que você encontre projetos parecidos com esse aqui no Github.
 Caso queira consultar meus projetos pessoais, recomendo [esse](https://github.com/rodrigolemos/my-school-front) repositório para front-end e [esse](https://github.com/rodrigolemos/my-school) repositório para back-end.
 
 ## Tecnologias
